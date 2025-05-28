@@ -23,6 +23,16 @@ class Worker(AbstractUser):
     def __str__(self):
         return f"{self.username}: {self.position.name}"
 
+    def get_absolute_url(self):
+        return reverse("worker-detail", kwargs={"pk": self.pk})
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Task(models.Model):
     class Priority(models.TextChoices):
@@ -40,10 +50,16 @@ class Task(models.Model):
         default=Priority.MEDIUM
     )
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, related_name="tasks")
-    assignees = models.ManyToManyField(Worker, related_name='assigned_tasks')
+    assignees = models.ManyToManyField(Worker, related_name="assigned_tasks")
+    tags = models.ManyToManyField(Tag, related_name="tasks", blank=True)
 
     def __str__(self):
         return f"{self.name}: {self.task_type.name}, {self.priority}, {self.deadline}"
 
     def get_absolute_url(self):
         return reverse("task-detail", kwargs={"pk": self.pk})
+
+    class Meta:
+        ordering = ["is_completed", "deadline"]
+
+
