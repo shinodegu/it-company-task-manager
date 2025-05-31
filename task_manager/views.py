@@ -1,8 +1,9 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         UserPassesTestMixin)
+
+from .forms import TaskForm, WorkerPositionUpdateForm, WorkerForm
 from .models import Position, TaskType, Worker, Task, Tag
 
 
@@ -33,13 +34,13 @@ class TaskDetailView(generic.DetailView):
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    fields = "__all__"
+    form_class = TaskForm
     success_url = reverse_lazy("task_manager:task-list")
 
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    fields =  "is_completed"
+    form_class = TaskForm
     success_url = reverse_lazy("task_manager:task-list")
 
 
@@ -62,22 +63,22 @@ class WorkerDeleteView(UserPassesTestMixin, generic.DeleteView):
         return self.request.user.is_superuser
 
 
-class WorkerUpdateView(UserPassesTestMixin, generic.UpdateView):
+class WorkerCreateView(UserPassesTestMixin, generic.CreateView):
     model = Worker
-    fields = "__all__"
+    form_class = WorkerForm
     success_url = reverse_lazy("task_manager:worker-list")
 
     def test_func(self):
         return self.request.user.is_superuser
 
 
-class WorkerCreateView(UserPassesTestMixin, generic.CreateView):
+class WorkerPositionUpdateView(UserPassesTestMixin, generic.UpdateView):
     model = Worker
-    fields = "__all__"
+    form_class = WorkerPositionUpdateForm
+    success_url = reverse_lazy("task_manager:worker-list")
 
     def test_func(self):
         return self.request.user.is_superuser
-
 
 class TaskTypeListView(generic.ListView):
     model = TaskType
