@@ -12,9 +12,9 @@
   <div class="flex justify-center">
     <h2 class="text-2xl font-semibold text-center bg-gray-300/90 py-2 px-6 rounded-md shadow-md">
       {% if user.is_authenticated and has_tasks %}
-        Задачи, которые ждут вас:
+        Tasks that await you:
       {% else %}
-        Последние задачи над которыми мы работаем:
+        The latest tasks we're working on:
       {% endif %}
     </h2>
   </div>
