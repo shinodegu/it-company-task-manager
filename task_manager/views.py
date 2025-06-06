@@ -10,6 +10,21 @@ from .models import Position, TaskType, Worker, Task, Tag
 class IndexView(generic.TemplateView):
     template_name = "task_manager/index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            tasks = Task.objects.filter(
+                assignees=self.request.user
+            ).select_related("task_type")[:3]
+            if not tasks.exists():
+                tasks = Task.objects.all().select_related("task_type")[:3]
+        else:
+            tasks = Task.objects.all().select_related("task_type")[:3]
+
+        context["tasks"] = tasks
+        return context
+
 
 class TaskListView(generic.ListView):
     model = Task
@@ -19,7 +34,7 @@ class TaskListView(generic.ListView):
         "assignees",  # ✅ ManyToMany → prefetch
         "tags"
     )
-    paginate_by = 10
+    paginate_by = 9
 
 
 class TaskDetailView(generic.DetailView):
