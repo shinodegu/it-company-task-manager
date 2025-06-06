@@ -31,6 +31,9 @@
         <!-- Правая группа -->
         <div class="flex space-x-4">
           <a href="{% url 'task_manager:worker-list' %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Workers</a>
+          <a href="{% url 'task_manager:task-type-list' %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Task Types</a>
+        </div>
+        <div class="flex space-x-4 absolute right-4">
           {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Logout</a>
           {% else %}
