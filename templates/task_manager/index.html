@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block body_style %}
+    style="background-image: url('{% static 'img/rawkkim-vygFIMTe5l4-unsplash.jpg' %}');
+           background-size: cover;
+           background-repeat: no-repeat;
+           background-attachment: fixed;"
+{% endblock %}
+
 {% block content %}
   <div class="flex justify-center">
     <h2 class="text-2xl font-semibold text-center bg-gray-300/90 py-2 px-6 rounded-md shadow-md">

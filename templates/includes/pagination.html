@@ -1,17 +1,21 @@
 {% if is_paginated %}
-  <ul class="pagination">
+  <div class="flex items-center space-x-2">
     {% if page_obj.has_previous %}
-      <li class="page-item">
-        <a href="?page= {{ page_obj.previous_page_number }}" class="page-link">prev</a>
-      </li>
+      <a href="?page={{ page_obj.previous_page_number }}"
+         class="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition">
+        prev
+      </a>
     {% endif %}
-    <li class="page-item active">
-      <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
-    </li>
+
+    <span class="text-white px-4 py-2 bg-gray-700 rounded">
+      page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
     {% if page_obj.has_next %}
-      <li class="page-item">
-        <a href="?page= {{ page_obj.next_page_number }}" class="page-link">next</a>
-      </li>
+      <a href="?page={{ page_obj.next_page_number }}"
+         class="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition">
+        next
+      </a>
     {% endif %}
-  </ul>
+  </div>
 {% endif %}

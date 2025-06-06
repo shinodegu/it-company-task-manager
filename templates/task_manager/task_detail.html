@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="max-w-2xl mx-auto mt-10 card">
+    <h2 class="card-title">{{ task.name }}</h2>
+
+    <div class="mb-4">
+      <span class="card-label">Priority:</span>
+      <span class="card-value">{{ task.priority }}</span>
+    </div>
+
+    <div class="mb-4">
+      <span class="card-label">Description:</span>
+      <p class="card-value">{{ task.description }}</p>
+    </div>
+
+    <div class="mb-4">
+      <span class="card-label">Assigned employees:</span>
+      <ul class="list-disc list-inside card-value mt-1">
+        {% for worker in task.assignees.all %}
+          <li>{{ worker.username }} ({{ worker.first_name }} {{ worker.last_name }}, {{ worker.position }})</li>
+        {% empty %}
+          <li>None assigned</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="mb-4">
+      <span class="card-label">Is completed:</span>
+      <span class="card-value">
+        {% if task.is_completed %}
+          Yes
+        {% else %}
+          No
+        {% endif %}
+      </span>
+    </div>
+
+    <div class="mb-4">
+      <span class="card-label">Deadline:</span>
+      <span class="card-value">{{ task.deadline|date:"F j, Y, g:i a" }}</span>
+    </div>
+
+    <div class="mt-6 flex space-x-4">
+      <a href="{% url 'task_manager:task-update' task.pk %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Update</a>
+    </div>
+  </div>
+{% endblock %}

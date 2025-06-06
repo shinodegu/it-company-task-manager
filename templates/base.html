@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,11 +6,14 @@
     <title>{% block title %}Task Manager{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% load static %}
   </head>
-  <body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col justify-between"
-        style="background-image: url('{% static "img/rawkkim-vygFIMTe5l4-unsplash.jpg" %}');
-               background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+  <body {% block body_style %}{% endblock %} class="bg-gray-100 text-gray-900 min-h-screen flex flex-col justify-between">
 
     <nav class="bg-gray-300 shadow-md py-4 fixed top-0 left-0 right-0 z-50">
       <div class="flex items-center justify-center space-x-10">
