@@ -3,11 +3,12 @@ from django.views import generic
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         UserPassesTestMixin)
 
-from .forms import TaskForm, WorkerPositionUpdateForm, WorkerForm
+from .forms import (TaskForm, WorkerPositionUpdateForm,
+                    WorkerForm, PositionDeleteForm, WorkerSearchForm, TaskSearchForm)
 from .models import Position, TaskType, Worker, Task, Tag
 
 
-class IndexView(generic.TemplateView):
+class IndexView(LoginRequiredMixin, generic.TemplateView):
     template_name = "task_manager/index.html"
 
     def get_context_data(self, **kwargs):
@@ -26,7 +27,7 @@ class IndexView(generic.TemplateView):
         return context
 
 
-class TaskListView(generic.ListView):
+class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     queryset = Task.objects.select_related(
         "task_type"
@@ -36,8 +37,23 @@ class TaskListView(generic.ListView):
     )
     paginate_by = 9
 
+    def get_queryset(self):
+        queryset = Task.objects.select_related("task_type").prefetch_related("assignees", "tags")
+        form = TaskSearchForm(self.request.GET)
 
-class TaskDetailView(generic.DetailView):
+        if form.is_valid() and form.cleaned_data["title"]:
+            title = form.cleaned_data["title"]
+            queryset = queryset.filter(name__icontains=title)
+
+        return queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = TaskSearchForm(self.request.GET)
+        return context
+
+
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     queryset = Task.objects.select_related(
         "task_type"
@@ -47,30 +63,44 @@ class TaskDetailView(generic.DetailView):
     )
 
 
-class TaskCreateView(generic.CreateView):
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy("task_manager:task-list")
 
 
-class TaskUpdateView(generic.UpdateView):
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy("task_manager:task-list")
 
 
-class WorkerListView(generic.ListView):
+class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
-    queryset = Worker.objects.select_related("position")
     paginate_by = 10
 
+    def get_queryset(self):
+        queryset = Worker.objects.select_related("position")
+        form = WorkerSearchForm(self.request.GET)
 
-class WorkerDetailView(generic.DetailView):
+        if form.is_valid() and form.cleaned_data["title"]:
+            title = form.cleaned_data["title"]
+            queryset = queryset.filter(username__icontains=title)
+
+        return queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = WorkerSearchForm(self.request.GET)
+        return context
+
+
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
     queryset = Worker.objects.select_related("position")
 
 
-class WorkerDeleteView(UserPassesTestMixin, generic.DeleteView):
+class WorkerDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Worker
     success_url = reverse_lazy("task_manager:worker-list")
 
@@ -78,7 +108,7 @@ class WorkerDeleteView(UserPassesTestMixin, generic.DeleteView):
         return self.request.user.is_superuser
 
 
-class WorkerCreateView(UserPassesTestMixin, generic.CreateView):
+class WorkerCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
     model = Worker
     form_class = WorkerForm
     success_url = reverse_lazy("task_manager:worker-list")
@@ -87,7 +117,7 @@ class WorkerCreateView(UserPassesTestMixin, generic.CreateView):
         return self.request.user.is_superuser
 
 
-class WorkerPositionUpdateView(UserPassesTestMixin, generic.UpdateView):
+class WorkerPositionUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Worker
     form_class = WorkerPositionUpdateForm
     success_url = reverse_lazy("task_manager:worker-list")
@@ -95,29 +125,31 @@ class WorkerPositionUpdateView(UserPassesTestMixin, generic.UpdateView):
     def test_func(self):
         return self.request.user.is_superuser
 
-class TaskTypeListView(generic.ListView):
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
     paginate_by = 10
 
 
-class TaskTypeCreateView(generic.CreateView):
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     model = TaskType
     fields = "__all__"
     success_url = reverse_lazy("task_manager:task-type-list")
 
 
-class TaskTypeUpdateView(generic.UpdateView):
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = TaskType
     fields = "__all__"
     success_url = reverse_lazy("task_manager:task-type-list")
 
 
-class TaskTypeDeleteView(generic.DeleteView):
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = TaskType
     success_url = reverse_lazy("task_manager:task-type-list")
 
 
-class PositionCreateView(UserPassesTestMixin, generic.CreateView):
+class PositionCreateView(LoginRequiredMixin,
+                         UserPassesTestMixin,
+                         generic.CreateView):
     model = Position
     fields = "__all__"
     success_url = reverse_lazy("task_manager:worker-list")
@@ -126,7 +158,9 @@ class PositionCreateView(UserPassesTestMixin, generic.CreateView):
         return self.request.user.is_superuser
 
 
-class PositionUpdateView(UserPassesTestMixin, generic.UpdateView):
+class PositionUpdateView(LoginRequiredMixin,
+                         UserPassesTestMixin,
+                         generic.UpdateView):
     model = Position
     fields = "__all__"
     success_url = reverse_lazy("task_manager:worker-list")
@@ -135,31 +169,37 @@ class PositionUpdateView(UserPassesTestMixin, generic.UpdateView):
         return self.request.user.is_superuser
 
 
-class PositionDeleteView(UserPassesTestMixin, generic.DeleteView):
-    model = Position
+class PositionDeleteMultiView(LoginRequiredMixin, UserPassesTestMixin, generic.FormView):
+    template_name = "task_manager/position_delete_multi.html"
+    form_class = PositionDeleteForm
     success_url = reverse_lazy("task_manager:worker-list")
+
+    def form_valid(self, form):
+        positions = form.cleaned_data["positions"]
+        positions.delete()
+        return super().form_valid(form)
 
     def test_func(self):
         return self.request.user.is_superuser
 
 
-class TagListView(generic.ListView):
+class TagListView(LoginRequiredMixin, generic.ListView):
     model = Tag
     paginate_by = 10
 
 
-class TagCreateView(generic.CreateView):
+class TagCreateView(LoginRequiredMixin, generic.CreateView):
     model = Tag
     fields = "__all__"
     success_url = reverse_lazy("task_manager:tag-list")
 
 
-class TagUpdateView(generic.UpdateView):
+class TagUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Tag
     fields = "__all__"
     success_url = reverse_lazy("task_manager:tag-list")
 
 
-class TagDeleteView(generic.DeleteView):
+class TagDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Tag
     success_url = reverse_lazy("task_manager:tag-list")

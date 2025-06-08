@@ -6,7 +6,7 @@ from .views import (
     WorkerListView, WorkerDetailView,
     WorkerCreateView, WorkerDeleteView,
     PositionCreateView, WorkerPositionUpdateView,
-    PositionUpdateView, PositionDeleteView,
+    PositionUpdateView, PositionDeleteMultiView,
     TaskTypeListView, TaskTypeCreateView,
     TaskTypeUpdateView, TaskTypeDeleteView,
     TagListView, TagCreateView,
@@ -35,7 +35,8 @@ urlpatterns = [
     # Positions
     path("positions/create/", PositionCreateView.as_view(), name="position-create"),
     path("positions/<int:pk>/update/", PositionUpdateView.as_view(), name="position-update"),
-    path("positions/<int:pk>/delete/", PositionDeleteView.as_view(), name="position-delete"),
+    path("positions/delete-multi/", PositionDeleteMultiView.as_view(), name="position-delete-multi"),
+
 
     # Task Types
     path("task-types/", TaskTypeListView.as_view(), name="task-type-list"),
