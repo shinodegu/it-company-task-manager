@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block body_style %}
+  style="background-image: url('{% static 'img/vid-displea-komp-uternogo-monitora-s-stolom.jpg' %}');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;"
+{% endblock %}
+
+{% block content %}
+  <div class="max-w-md mx-auto mt-16 p-6 bg-gray-300 bg-opacity-90 rounded-lg shadow-lg">
+    <h1 class="text-2xl font-semibold text-center mb-6">
+      {{ object|yesno:"Update,Create" }} Worker
+    </h1>
+
+    <form method="post" novalidate class="space-y-4">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <div class="text-center">
+        <input type="submit"
+               value="Submit"
+               class="bg-black text-white px-6 py-2 rounded-lg text-lg hover:bg-gray-800 transition" />
+      </div>
+    </form>
+  </div>
+{% endblock %}
