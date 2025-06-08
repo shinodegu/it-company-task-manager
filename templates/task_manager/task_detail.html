@@ -1,23 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block body_style %}
+  style="background-image: url('{% static 'img/vid-displea-komp-uternogo-monitora-s-stolom.jpg' %}');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;"
+{% endblock %}
+
 {% block content %}
-  <div class="max-w-2xl mx-auto mt-10 card">
-    <h2 class="card-title">{{ task.name }}</h2>
+  <div class="max-w-2xl mx-auto mt-10 p-8 rounded-xl bg-gray-100/80 shadow-lg text-gray-900 font-semibold">
+    <h2 class="text-2xl font-bold mb-4">{{ task.name }}</h2>
 
     <div class="mb-4">
-      <span class="card-label">Priority:</span>
-      <span class="card-value">{{ task.priority }}</span>
+      <span class="block text-lg">Priority:</span>
+      <span class="text-base">{{ task.priority }}</span>
     </div>
 
     <div class="mb-4">
-      <span class="card-label">Description:</span>
-      <p class="card-value">{{ task.description }}</p>
+      <span class="block text-lg">Description:</span>
+      <p class="text-base">{{ task.description }}</p>
     </div>
 
     <div class="mb-4">
-      <span class="card-label">Assigned employees:</span>
-      <ul class="list-disc list-inside card-value mt-1">
+      <span class="block text-lg">Assigned employees:</span>
+      <ul class="list-disc list-inside text-base mt-1">
         {% for worker in task.assignees.all %}
           <li>{{ worker.username }} ({{ worker.first_name }} {{ worker.last_name }}, {{ worker.position }})</li>
         {% empty %}
@@ -27,8 +34,8 @@
     </div>
 
     <div class="mb-4">
-      <span class="card-label">Is completed:</span>
-      <span class="card-value">
+      <span class="block text-lg">Is completed:</span>
+      <span class="text-base">
         {% if task.is_completed %}
           Yes
         {% else %}
@@ -38,12 +45,14 @@
     </div>
 
     <div class="mb-4">
-      <span class="card-label">Deadline:</span>
-      <span class="card-value">{{ task.deadline|date:"F j, Y, g:i a" }}</span>
+      <span class="block text-lg">Deadline:</span>
+      <span class="text-base">{{ task.deadline|date:"F j, Y, g:i a" }}</span>
     </div>
 
-    <div class="mt-6 flex space-x-4">
-      <a href="{% url 'task_manager:task-update' task.pk %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Update</a>
+    <div class="mt-6">
+      <a href="{% url 'task_manager:task-update' task.pk %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+        Update
+      </a>
     </div>
   </div>
 {% endblock %}
