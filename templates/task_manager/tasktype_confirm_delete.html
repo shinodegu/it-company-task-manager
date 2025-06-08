@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block body_style %}
+  style="background-image: url('{% static 'img/vysokii-ugol-krasocnyh-nakleek-v-korzine.jpg' %}');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;"
+{% endblock %}
 
 {% block content %}
   <div class="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow-md text-center">
