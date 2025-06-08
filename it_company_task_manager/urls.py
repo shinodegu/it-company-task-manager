@@ -17,10 +17,12 @@ Including another URLconf
 
 from django.urls import path, include
 from django.contrib import admin
+from django.shortcuts import redirect
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("task_manager/", include(("task_manager.urls", "task_manager"), namespace="task_manager")),
     path("registration/", include("django.contrib.auth.urls")),
-    path("", include("task_manager.urls")),
+    path("", lambda request: redirect("task_manager:index", permanent=False)),
 ]
