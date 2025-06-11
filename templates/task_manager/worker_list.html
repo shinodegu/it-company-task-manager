@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block body_style %}
+  style="background-image: url('{% static 'img/pexels-goumbik-317385.jpg' %}');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;"
+{% endblock %}
+
+{% block content %}
+  <div class="max-w-5xl mx-auto px-4">
+    <form method="get" action="" class="flex justify-center mb-6">
+      <input
+        type="text"
+        name="title"
+        placeholder="Search by username"
+        value="{{ request.GET.title }}"
+        class="w-80 px-4 py-2 rounded-l-lg border border-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
+      />
+      <button
+        type="submit"
+        class="bg-black text-white px-6 py-2 rounded-r-lg hover:bg-gray-800 transition"
+      >
+        Search
+      </button>
+    </form>
+
+
+    {% if user.is_superuser %}
+      <div class="flex justify-center space-x-4 mb-8">
+        <a href="{% url 'task_manager:position-create' %}"
+           class="bg-green-800 text-white px-4 py-2 rounded-lg hover:bg-black w-fit">
+          Create new position
+        </a>
+        <a href="{% url 'task_manager:worker-create' %}"
+           class="bg-green-800 text-white px-4 py-2 rounded-lg hover:bg-black w-fit">
+          Create new worker
+        </a>
+        <a href="{% url 'task_manager:position-delete-multi' %}"
+           class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-black w-fit">
+          Delete positions
+        </a>
+      </div>
+    {% endif %}
+
+    <div class="space-y-4">
+      {% for worker in worker_list %}
+        <div class="grid grid-cols-[1fr_1.5fr_1fr_auto] items-center gap-6 bg-gray-200/90 border border-gray-300 rounded-xl shadow-sm px-6 py-4 hover:shadow-md transition">
+          <p class="text-base font-medium text-gray-800">
+            Username: <a href="{% url 'task_manager:worker-detail' worker.pk %}"
+                         class="text-gray-800 underline hover:text-blue-800">
+            <span class="font-semibold">{{ worker.username }}
+            </span>
+          </a>
+          </p>
+          <p class="text-base font-medium text-gray-800">
+            Position: <span class="font-semibold">{{ worker.position }}</span>
+          </p>
+          <p class="text-base font-medium text-gray-800">
+            Tasks assigned: <span class="font-semibold">{{ worker.assigned_tasks.count }}</span>
+          </p>
+          {% if user.is_superuser %}
+            <div class="flex space-x-2 justify-end">
+              <a href="{% url 'task_manager:worker-delete' worker.pk %}"
+                 class="bg-red-500 text-white px-4 py-1.5 rounded-lg hover:bg-black transition text-sm">
+                Delete
+              </a>
+              <a href="{% url 'task_manager:worker-update' worker.pk %}"
+                 class="bg-green-800 text-white px-4 py-1.5 rounded-lg hover:bg-black transition text-sm">
+                Update
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% empty %}
+        <p class="text-white text-lg font-medium text-center">There are no workers.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+  <div class="mt-10 flex justify-center">
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}

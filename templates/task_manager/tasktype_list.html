@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block body_style %}
+  style="background-image: url('{% static 'img/pexels-goumbik-317385.jpg' %}');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;"
+{% endblock %}
+
+{% block content %}
+  <div class="max-w-xl mx-auto px-4 space-y-4">
+    <a href="{% url 'task_manager:task-type-create' %}"
+    class="block mx-auto text-center bg-gray-500 text-white px-4 py-1.5 rounded-lg hover:bg-black">
+    Create new task type
+    </a>
+    {% for task_type in tasktype_list %}
+      <div class="flex justify-between items-center bg-gray-200/90 border border-gray-300 rounded-xl shadow-sm px-6 py-4 hover:shadow-md transition min-h-[64px] w-full">
+        <p class="text-base font-medium text-gray-800 mr-4">
+          Task Type: <span class="font-semibold">{{ task_type.name }}</span>
+        </p>
+        <div class="flex space-x-2">
+          <a href="{% url 'task_manager:task-type-delete' task_type.pk %}"
+             class="bg-red-500 text-white px-4 py-1.5 rounded-lg hover:bg-black transition text-sm">
+            Delete
+          </a>
+          <a href="{% url 'task_manager:task-type-update' task_type.pk %}"
+             class="bg-green-800 text-white px-4 py-1.5 rounded-lg hover:bg-black transition text-sm">
+            Update
+          </a>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-white text-lg font-medium text-center">There are no task types.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

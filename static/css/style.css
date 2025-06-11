@@ -1,0 +1,19 @@
+.card {
+  @apply bg-gray-100 text-gray-900 shadow-lg rounded-xl p-6 mb-6;
+}
+
+.card-title {
+  @apply text-xl font-semibold mb-2;
+}
+
+.card-label {
+  @apply font-semibold text-gray-700;
+}
+
+.card-value {
+  @apply text-gray-800;
+}
+
+.btn-black {
+  @apply bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition;
+}

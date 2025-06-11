@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Task Manager{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body {% block body_style %}{% endblock %} class="bg-gray-100 text-gray-900 min-h-screen flex flex-col justify-between">
+
+    <nav class="bg-gray-300 shadow-md py-4 fixed top-0 left-0 right-0 z-50">
+      <div class="flex items-center justify-center space-x-10">
+        <!-- Левая группа -->
+        <div class="flex space-x-4">
+          <a href="{% url 'task_manager:task-list' %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Tasks</a>
+          <a href="{% url 'task_manager:tag-list' %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Tags</a>
+        </div>
+
+        <!-- Центр -->
+        <a href="{% url 'task_manager:index' %}" class="text-xl font-bold text-center">
+          Task Manager
+        </a>
+
+        <!-- Правая группа -->
+        <div class="flex space-x-4">
+          <a href="{% url 'task_manager:worker-list' %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Workers</a>
+          <a href="{% url 'task_manager:task-type-list' %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Task Types</a>
+        </div>
+        <div class="flex space-x-4 absolute right-4">
+          {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+                Logout
+              </button>
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Login</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-grow max-w-6xl mx-auto px-4 mt-28">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="text-center py-6 text-xl font-bold text-black">
+      &copy; 2025 | Built by You
+    </footer>
+  </body>
+</html>
