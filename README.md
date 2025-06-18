@@ -50,9 +50,8 @@ A simple web application built with Django for managing tasks, workers, position
 5. Run the development server
     python manage.py runserver
    
-6. Users to test site functionality
-login: not_admin
-password: Vba>TdHN
-
-login: admin
-password: admin_123
+## Users to test site functionality
+- login: not_admin
+- password: Vba>TdHN
+- login: admin
+- password: admin_123
