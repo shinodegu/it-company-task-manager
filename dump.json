@@ -1,0 +1,424 @@
+[
+{
+    "model": "task_manager.position",
+    "pk": 1,
+    "fields": {
+        "name": "Developer"
+    }
+},
+{
+    "model": "task_manager.position",
+    "pk": 2,
+    "fields": {
+        "name": "Project Manager"
+    }
+},
+{
+    "model": "task_manager.position",
+    "pk": 3,
+    "fields": {
+        "name": "QA"
+    }
+},
+{
+    "model": "task_manager.position",
+    "pk": 4,
+    "fields": {
+        "name": "Designer"
+    }
+},
+{
+    "model": "task_manager.tasktype",
+    "pk": 1,
+    "fields": {
+        "name": "Bug"
+    }
+},
+{
+    "model": "task_manager.tasktype",
+    "pk": 2,
+    "fields": {
+        "name": "Feature"
+    }
+},
+{
+    "model": "task_manager.tasktype",
+    "pk": 3,
+    "fields": {
+        "name": "Improvement"
+    }
+},
+{
+    "model": "task_manager.worker",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$EkCOHx0TJctkZSqRre1nOn$MqI0ASbxYIOoh8AnLwhVqZpPpx+HLbABHEEuwjlVbPg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Andrew",
+        "first_name": "Name0",
+        "last_name": "Surname0",
+        "email": "user0@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-01T16:47:36.960Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "task_manager.worker",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$rv8KLVYMPBaXjjd0ggWVdJ$aMGzs1nWlZXfKPkHFyHB8vvDeOqqMn3cESn7JBaHRzw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Denis",
+        "first_name": "Name1",
+        "last_name": "Surname1",
+        "email": "user1@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-01T16:47:37.384Z",
+        "position": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "task_manager.worker",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$ucOYVl2UZHJlio7U0fg8xI$EFigzxeqprCyKjKtRN/Ff+Ax9pX7QVs6ujKg6sE/zHQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Anna",
+        "first_name": "Name2",
+        "last_name": "Surname2",
+        "email": "user2@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-01T16:47:37.820Z",
+        "position": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "task_manager.worker",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$LqIgn0pQUCEMs0sb8tOiC1$D3X0vF/bJ6NvBkwHpgWERHX1dMTdzvXP240EjTxmHe8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Max",
+        "first_name": "Name3",
+        "last_name": "Surname3",
+        "email": "user3@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-01T16:47:38.276Z",
+        "position": 4,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "task_manager.worker",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$CaVRSB2lbxWMHJjdeXyoZR$+JAVbRiNRSjX17VeYCCoxD7A+zf0eLSCwJ5s4ZuMPZg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Taras",
+        "first_name": "Name4",
+        "last_name": "Surname4",
+        "email": "user4@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-01T16:47:38.709Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "task_manager.worker",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$Iftt53DuFEx641UPYvPG24$+4nqGqRZZFVdjq+P11cR5o4Rqs2+uJONpad6buXe02s=",
+        "last_login": "2025-06-17T12:05:49.917Z",
+        "is_superuser": true,
+        "username": "ihor",
+        "first_name": "",
+        "last_name": "",
+        "email": "ihor@example.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-06-07T09:13:07.663Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "task_manager.worker",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$HTD1t00xXuDLEVURyGwi95$YRMrV/QmQxnOXYkmQ5RtZvwxAcbq7sb6xBMgu8xURwI=",
+        "last_login": "2025-06-09T17:22:08.302Z",
+        "is_superuser": false,
+        "username": "Not_admin",
+        "first_name": "Ihor",
+        "last_name": "Ananasov",
+        "email": "notadmin@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-08T16:25:28.205Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "task_manager.tag",
+    "pk": 1,
+    "fields": {
+        "name": "frontend"
+    }
+},
+{
+    "model": "task_manager.tag",
+    "pk": 2,
+    "fields": {
+        "name": "backend"
+    }
+},
+{
+    "model": "task_manager.tag",
+    "pk": 3,
+    "fields": {
+        "name": "refactor"
+    }
+},
+{
+    "model": "task_manager.tag",
+    "pk": 4,
+    "fields": {
+        "name": "login"
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 1,
+    "fields": {
+        "name": "Task 1",
+        "description": "Description for Task 1",
+        "deadline": "2025-06-01T16:47:38.714Z",
+        "is_completed": true,
+        "priority": "High",
+        "task_type": 1,
+        "assignees": [
+            1
+        ],
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 2,
+    "fields": {
+        "name": "Task 2",
+        "description": "Description for Task 2",
+        "deadline": "2025-06-02T16:47:38Z",
+        "is_completed": true,
+        "priority": "Medium",
+        "task_type": 1,
+        "assignees": [
+            1,
+            3
+        ],
+        "tags": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 3,
+    "fields": {
+        "name": "Task 3",
+        "description": "Description for Task 3",
+        "deadline": "2025-06-03T16:47:38.731Z",
+        "is_completed": true,
+        "priority": "Medium",
+        "task_type": 3,
+        "assignees": [
+            1,
+            2,
+            3
+        ],
+        "tags": [
+            1,
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 4,
+    "fields": {
+        "name": "Task 4",
+        "description": "Description for Task 4",
+        "deadline": "2025-06-04T16:47:38Z",
+        "is_completed": true,
+        "priority": "High",
+        "task_type": 1,
+        "assignees": [
+            1,
+            2,
+            3,
+            4
+        ],
+        "tags": [
+            1,
+            2,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 5,
+    "fields": {
+        "name": "Task 5",
+        "description": "Description for Task 5",
+        "deadline": "2025-06-05T16:47:38.747Z",
+        "is_completed": true,
+        "priority": "Medium",
+        "task_type": 2,
+        "assignees": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 6,
+    "fields": {
+        "name": "Task 6",
+        "description": "Description for Task 6",
+        "deadline": "2025-06-06T16:47:38Z",
+        "is_completed": true,
+        "priority": "Medium",
+        "task_type": 3,
+        "assignees": [
+            1,
+            2,
+            3
+        ],
+        "tags": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 7,
+    "fields": {
+        "name": "Task 7",
+        "description": "Description for Task 7",
+        "deadline": "2025-06-07T16:47:38.767Z",
+        "is_completed": true,
+        "priority": "High",
+        "task_type": 1,
+        "assignees": [
+            1,
+            2
+        ],
+        "tags": [
+            1,
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 8,
+    "fields": {
+        "name": "Task 8",
+        "description": "Description for Task 8",
+        "deadline": "2025-06-08T16:47:38Z",
+        "is_completed": false,
+        "priority": "Medium",
+        "task_type": 2,
+        "assignees": [
+            1,
+            2,
+            3
+        ],
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 9,
+    "fields": {
+        "name": "Task 9",
+        "description": "Description for Task 9",
+        "deadline": "2025-06-09T16:47:38.792Z",
+        "is_completed": true,
+        "priority": "Medium",
+        "task_type": 3,
+        "assignees": [
+            1,
+            2,
+            3,
+            4
+        ],
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "task_manager.task",
+    "pk": 10,
+    "fields": {
+        "name": "Task 10",
+        "description": "Description for Task 10",
+        "deadline": "2025-06-10T16:47:38.800Z",
+        "is_completed": false,
+        "priority": "High",
+        "task_type": 1,
+        "assignees": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "tags": [
+            1,
+            2
+        ]
+    }
+}
+]
