@@ -31,6 +31,7 @@ A simple web application built with Django for managing tasks, workers, position
 
 ## Installation
 Link to repository https://github.com/shinodegu/it-company-task-manager
+Link to the site https://it-company-task-manager-os93.onrender.com
 
 1. Clone the repository:
    ```bash
