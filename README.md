@@ -30,6 +30,7 @@ A simple web application built with Django for managing tasks, workers, position
 - crispy-forms (optional)
 
 ## Installation
+Link to repository https://github.com/shinodegu/it-company-task-manager
 
 1. Clone the repository:
    ```bash
